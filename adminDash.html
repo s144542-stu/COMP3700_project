@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – SmartBooking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            margin-bottom: 8px;
+            color: #003366;
+        }
+
+        .page-intro {
+            margin-bottom: 20px;
+            color: #555555;
+        }
+
+        .panel {
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            background-color: #f9f9f9;
+        }
+
+        .panel-header {
+            padding: 10px 16px;
+            background-color: #e3f2fd;
+            border-bottom: 1px solid #dddddd;
+            font-weight: bold;
+        }
+
+        .panel-body {
+            padding: 16px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .admin-table thead th {
+            background-color: #f0f4ff;
+        }
+
+        .admin-table .sub-header {
+            background-color: #e8eefc;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .status-confirmed {
+            background-color: #c8e6c9;
+            color: #256029;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background-color: #ffcdd2;
+            color: #b71c1c;
+        }
+
+        .small-note {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .site-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555555;
+            padding: 12px 0;
+            border-top: 1px solid #dddddd;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">
+            <img src="Picture1.png" alt="SmartBooking Logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel.html">Hotels</a></li>
+                <li><a href="event.html">Events</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="userDash.html">User Dashboard</a></li>
+                <li><a href="adminDash.html">Admin Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-wrapper">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <p class="page-intro">
+            This page shows how administrators can view bookings and manage hotels and events.
+            The data below is sample data to illustrate the design and table layout.
+        </p>
+
+        <section class="panel">
+            <div class="panel-header">
+                All Bookings (Sample Data)
+            </div>
+            <div class="panel-body">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Booking ID</th>
+                            <th rowspan="2">User</th>
+                            <th rowspan="2">Type</th>
+                            <th rowspan="2">Item</th>
+                            <th colspan="2">Details</th>
+                            <th rowspan="2">Status</th>
+                        </tr>
+                        <tr class="sub-header">
+                            <th>Date / Period</th>
+                            <th>Guests / Tickets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#B001</td>
+                            <td>Mahmood</td>
+                            <td>Hotel</td>
+                            <td>Crowne Plaza Muscat – Standard Room</td>
+                            <td>10 Dec 2025 – 12 Dec 2025</td>
+                            <td>2 Adults</td>
+                            <td><span class="status status-confirmed">Confirmed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#B002</td>
+                            <td>Alaa</td>
+                            <td>Event</td>
+                            <td>New Year Gala Night – VIP Ticket</td>
+                            <td>31 Dec 2025</td>
+                            <td>3 Tickets</td>
+                            <td><span class="status status-pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>#B003</td>
+                            <td>Hamza</td>
+                            <td>Hotel</td>
+                            <td>ibis Muscat – Double Room</td>
+                            <td>05 Jan 2026 – 07 Jan 2026</td>
+                            <td>2 Adults + 1 Child</td>
+                            <td><span class="status status-cancelled">Cancelled</span></td>
+                        </tr>
+                        <tr>
+                            <td>#B004</td>
+                            <td>Abdulaziz</td>
+                            <td>Event</td>
+                            <td>Wedding Reception – Standard Ticket</td>
+                            <td>15 Jan 2026</td>
+                            <td>5 Tickets</td>
+                            <td><span class="status status-confirmed">Confirmed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                Management Overview
+            </div>
+            <div class="panel-body">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Hotels</th>
+                            <th colspan="3">Events</th>
+                        </tr>
+                        <tr class="sub-header">
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Active Rooms</th>
+                            <th>Title</th>
+                            <th>Venue</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Crowne Plaza Muscat</td>
+                            <td>Muscat</td>
+                            <td>120</td>
+                            <td>Wedding Reception</td>
+                            <td>Ballroom A</td>
+                            <td>15 Jan 2026</td>
+                        </tr>
+                        <tr>
+                            <td>Mercure Muscat</td>
+                            <td>Muscat</td>
+                            <td>80</td>
+                            <td>Corporate Meeting</td>
+                            <td>Conference Hall</td>
+                            <td>20 Feb 2026</td>
+                        </tr>
+                        <tr>
+                            <td>ibis Muscat</td>
+                            <td>Muscat</td>
+                            <td>60</td>
+                            <td>National Day Concert</td>
+                            <td>Outdoor Stage</td>
+                            <td>18 Nov 2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="small-note">
+                    This static overview shows how admins can quickly see active hotels and upcoming events in one place.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        ©2025 Smart Booking | by Leader Team. All rights reserved
+    </footer>
+
+</body>
+</html>

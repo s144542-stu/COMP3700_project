@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard – SmartBooking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            margin-bottom: 8px;
+            color: #003366;
+        }
+
+        .page-intro {
+            margin-bottom: 20px;
+            color: #555555;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+        }
+
+        .user-sidebar {
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            padding: 16px;
+            background-color: #f9f9f9;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #dde6f5;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .sidebar-menu h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #003366;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 6px;
+        }
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-menu a:hover {
+            text-decoration: underline;
+        }
+
+        .small-note {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .panel {
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            background-color: #f9f9f9;
+        }
+
+        .panel-header {
+            padding: 10px 16px;
+            background-color: #e3f2fd;
+            border-bottom: 1px solid #dddddd;
+            font-weight: bold;
+        }
+
+        .panel-body {
+            padding: 16px;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card {
+            border: 1px solid #d0d7e6;
+            border-radius: 6px;
+            padding: 10px 12px;
+            background-color: #ffffff;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            background-color: #ffffff;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .admin-table thead th {
+            background-color: #f0f4ff;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .status-confirmed {
+            background-color: #c8e6c9;
+            color: #256029;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background-color: #ffcdd2;
+            color: #b71c1c;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        .panel-actions {
+            margin-top: 8px;
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">
+            <img src="Picture1.png" alt="SmartBooking Logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel.html">Hotels</a></li>
+                <li><a href="event.html">Events</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="userDash.html" class="active">User Dashboard</a></li>
+                <li><a href="adminDash.html">Admin Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    
+
+                <section class="panel">
+                    <div class="panel-header">
+                        Upcoming Bookings (Sample Data)
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Type</th>
+                                    <th>Item</th>
+                                    <th>Date / Period</th>
+                                    <th>Guests / Tickets</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#B010</td>
+                                    <td>Hotel</td>
+                                    <td>Crowne Plaza Muscat – Sea View Room</td>
+                                    <td>20 Dec 2025 – 23 Dec 2025</td>
+                                    <td>2 Adults</td>
+                                    <td><span class="status status-confirmed">Confirmed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#B011</td>
+                                    <td>Event</td>
+                                    <td>New Year Gala Night – VIP Ticket</td>
+                                    <td>31 Dec 2025</td>
+                                    <td>3 Tickets</td>
+                                    <td><span class="status status-pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="panel-actions">
+                            <a href="#" class="btn-secondary">View All Upcoming</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        Booking History (Sample Data)
+                    </div>
+                    <div class="panel-body">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Type</th>
+                                    <th>Item</th>
+                                    <th>Date / Period</th>
+                                    <th>Guests / Tickets</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#B004</td>
+                                    <td>Hotel</td>
+                                    <td>Mercure Muscat – Standard Room</td>
+                                    <td>10 Oct 2025 – 12 Oct 2025</td>
+                                    <td>2 Adults</td>
+                                    <td><span class="status status-confirmed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#B005</td>
+                                    <td>Event</td>
+                                    <td>Graduation Ceremony – Standard Ticket</td>
+                                    <td>01 Sep 2025</td>
+                                    <td>4 Tickets</td>
+                                    <td><span class="status status-confirmed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#B006</td>
+                                    <td>Hotel</td>
+                                    <td>ibis Muscat – Double Room</td>
+                                    <td>15 Aug 2025 – 17 Aug 2025</td>
+                                    <td>2 Adults + 1 Child</td>
+                                    <td><span class="status status-cancelled">Cancelled</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="panel-actions">
+                            <a href="#" class="btn-secondary">View Full History</a>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        ©2025 Smart Booking | by Leader Team. All rights reserved
+    </footer>
+
+</body>
+</html>

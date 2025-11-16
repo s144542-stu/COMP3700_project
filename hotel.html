@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .page-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #e0eaf6;
+        }
+
+        .book-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            text-decoration: none;
+            background-color: #0055aa;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .book-btn:hover {
+            background-color: #003f7d;
+        }
+
+        .hotel-img {
+            width: 120px;
+            height: auto;
+            border-radius: 6px;
+        }
+        .hotel-search-form {
+            border: 1px solid #ddd;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">
+            <img src="Picture1.png" alt="SmartBooking Logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel.html">Hotels</a></li>
+                <li><a href="event.html">Events</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="userDash.html">User Dashboard</a></li>
+                <li><a href="adminDash.html">Admin Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <h1>Available Hotels</h1>
+
+        <p style="text-align:center; color: #555;">
+            Browse our hotel options and choose the room that fits your preference.
+        </p>
+
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Hotel</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Room Type</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><img src="f1.webp" class="hotel-img"></td>
+                <td rowspan="2"><strong>Crowne Plaza Muscat</strong><br>Muscat, Oman</td>
+                <td rowspan="2">45 OMR</td>
+                <td rowspan="2">★★★★☆</td>
+                <td>Standard Room</td>
+                <td><a href="booking.html?hotel=crowne-standard" class="book-btn">Book</a></td>
+            </tr>
+            <tr>
+                <td>Deluxe Room</td>
+                <td><a href="booking.html?hotel=crowne-deluxe" class="book-btn">Book</a></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><img src="f2.webp" class="hotel-img"></td>
+                <td rowspan="2"><strong>Mercure Hotel</strong><br>Muscat, Oman</td>
+                <td rowspan="2">35 OMR</td>
+                <td rowspan="2">★★★☆☆</td>
+                <td>Standard Room</td>
+                <td><a href="booking.html?hotel=mercure-standard" class="book-btn">Book</a></td>
+            </tr>
+            <tr>
+                <td>Double Room</td>
+                <td><a href="booking.html?hotel=mercure-double" class="book-btn">Book</a></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2"><img src="/part2/web_part2/web_part2/f3.webp" class="hotel-img" alt="ibis Hotel"></td>
+                <td rowspan="2"><strong>Ibis Muscat</strong><br>Muscat, Oman</td>
+                <td rowspan="2">30 OMR</td>
+                <td rowspan="2">★★★☆☆</td>
+                <td>Standard Room</td>
+                <td><a href="booking.html?hotel=ibis-standard" class="book-btn">Book</a></td>
+            </tr>
+            <tr>
+                <td>Double Room</td>
+                <td><a href="booking.html?hotel=ibis-double" class="book-btn">Book</a></td>
+            </tr>
+
+        </table>
+
+    </div>
+    <form action="https://httpbin.org/get" method="get" class="hotel-search-form">
+
+        <fieldset>
+            <legend>Search for a Hotel</legend>
+
+            <label for="city">City *</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="hotelSelect">Hotel *</label>
+            <select id="hotelSelect" name="hotel">
+                <option value="">-- Select a Hotel --</option>
+                <option value="Crowne Plaza">Crowne Plaza</option>
+                <option value="Mercure">Mercure</option>
+                <option value="Ibis">Ibis</option>
+            </select>
+
+            <label for="checkIn">Check-in Date</label>
+            <input type="date" id="checkIn" name="checkIn">
+
+            <label for="checkOut">Check-out Date</label>
+            <input type="date" id="checkOut" name="checkOut">
+
+            <label for="guests">Number of Guests *</label>
+            <input type="number" id="guests" name="guests" min="1" value="1" required>
+
+            <label>
+                <input type="checkbox" name="includeBreakfast" value="yes">
+                Include Breakfast
+            </label>
+        </fieldset>
+
+        <input type="submit" value="Search Hotels" class="btn-primary">
+    </form>
+
+    <footer class="footer-bar">
+        ©2025 Smart Booking | by Leader Team. All rights reserved.
+    </footer>
+
+</body>
+</html>

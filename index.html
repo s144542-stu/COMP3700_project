@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .hero-section {
+            background-color: #f0f6ff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #003366;
+        }
+
+        .hero-text {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            color: #333333;
+        }
+
+        .hero-buttons a {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-main {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        .btn-main:hover {
+            background-color: #003f80;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #0056b3;
+            border: 2px solid #0056b3;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e6f0ff;
+        }
+
+        .features-row {
+            max-width: 1000px;
+            margin: 30px auto 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .feature-box {
+            flex: 1 1 260px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .feature-box h4 {
+            margin-bottom: 10px;
+            color: #003366;
+        }
+
+        .feature-box p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #444444;
+        }
+
+        .feature-link {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #0056b3;
+            color: #0056b3;
+            background-color: #ffffff;
+        }
+
+        .feature-link:hover {
+            background-color: #e6f0ff;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.85rem;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">
+            <img src="Picture1.png" alt="SmartBooking Logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="hotel.html">Hotels</a></li>
+                <li><a href="event.html">Events</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="userDash.html">User Dashboard</a></li>
+                <li><a href="adminDash.html">Admin Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero-section">
+        <h1 class="hero-title">Welcome to SmartBooking</h1>
+        <p class="hero-text">
+            Book your hotel stays and event tickets quickly and easily in one simple website.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="hotel.html" class="btn-main">Browse Hotels</a>
+            <a href="event.html" class="btn-secondary">Browse Events</a>
+        </div>
+    </section>
+
+    <section class="features-row">
+        <div class="feature-box">
+            <h4>Hotels</h4>
+            <p>Find top hotels with affordable prices and instant booking.</p>
+            <a href="hotel.html" class="feature-link">View Hotels</a>
+        </div>
+
+        <div class="feature-box">
+            <h4>Events</h4>
+            <p>Explore exciting events and reserve tickets in a few clicks.</p>
+            <a href="event.html" class="feature-link">View Events</a>
+        </div>
+
+        <div class="feature-box">
+            <h4>Manage Bookings</h4>
+            <p>Check your bookings and track status in your dashboard.</p>
+            <a href="userDash.html" class="feature-link">User Dashboard</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        ©2025 Smart Booking | by Leader Team. All rights reserved
+    </footer>
+
+</body>
+</html>

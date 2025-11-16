@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking (No Bootstrap)</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #003366;
+            padding: 10px 20px;
+            color: white;
+        }
+        .top-bar .logo img {
+            height: 50px;
+        }
+        .main-nav ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .main-nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        p.text-muted {
+            color: #777;
+        }
+        form {
+            border: 1px solid #ddd;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        legend {
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .col {
+            flex: 1;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="logo">
+            <img src="Picture1.png" alt="SmartBooking Logo" />
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel.html">Hotels</a></li>
+                <li><a href="event.html">Events</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="userDash.html">User Dashboard</a></li>
+                <li><a href="adminDash.html">Admin Dashboard</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Booking Form</h1>
+        <p class="text-muted">Please fill in the details below to book a hotel room or event ticket.</p>
+
+        <form action="https://httpbin.org/get" method="get">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required />
+
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required />
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+968-XXXXXXXX" />
+            </fieldset>
+
+            <fieldset>
+                <legend>Booking Type</legend>
+                <label><input type="radio" name="bookingType" value="hotel" checked /> Hotel Booking</label>
+                <label><input type="radio" name="bookingType" value="event" /> Event Booking</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Select Hotel / Event</legend>
+                <label for="itemName">Hotel or Event *</label>
+                <select id="itemName" name="itemName" required>
+                    <option value="">-- Please choose --</option>
+                    <option value="Crowne Plaza Hotel">Crowne Plaza Hotel</option>
+                    <option value="Mercure Hotel">Mercure Hotel</option>
+                    <option value="Intercontinental Hotel">Intercontinental Hotel</option>
+                    <option value="Wedding Reception">Wedding Reception</option>
+                    <option value="Graduation Ceremony">Graduation Ceremony</option>
+                    <option value="National Day Celebration">National Day Celebration</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dates & Guests</legend>
+                <div class="row">
+                    <div class="col">
+                        <label for="checkIn">Check-in Date (for hotels)</label>
+                        <input type="date" id="checkIn" name="checkInDate" />
+                    </div>
+                    <div class="col">
+                        <label for="checkOut">Check-out Date (for hotels)</label>
+                        <input type="date" id="checkOut" name="checkOutDate" />
+                    </div>
+                    <div class="col">
+                        <label for="eventDate">Event Date (for events)</label>
+                        <input type="date" id="eventDate" name="eventDate" />
+                    </div>
+                </div>
+
+                <label for="guests">Number of Guests / Tickets *</label>
+                <input type="number" id="guests" name="guests" min="1" value="1" required />
+            </fieldset>
+
+            <label for="specialRequests">Special Requests</label>
+            <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Example: late check-in, wheelchair access, food allergies..."></textarea>
+
+            <button type="submit" class="btn-primary">Submit Booking</button>
+            <button type="reset" class="btn-secondary">Reset Form</button>
+        </form>
+    </div>
+
+    <footer>
+        ©2025 Smart Booking | by Leader Team. All rights reserved
+    </footer>
+</body>
+</html>
