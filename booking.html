@@ -1,208 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Booking (No Bootstrap)</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-        }
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #003366;
-            padding: 10px 20px;
-            color: white;
-        }
-        .top-bar .logo img {
-            height: 50px;
-        }
-        .main-nav ul {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .main-nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .main-nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            margin-bottom: 10px;
-        }
-        p.text-muted {
-            color: #777;
-        }
-        form {
-            border: 1px solid #ddd;
-            background: #fafafa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        fieldset {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        legend {
-            font-weight: bold;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .row {
-            display: flex;
-            gap: 15px;
-        }
-        .col {
-            flex: 1;
-        }
-        .btn-primary {
-            background: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background: #0056b3;
-        }
-        .btn-secondary:hover {
-            background: #545b62;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #555;
-            font-size: 14px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header class="top-bar">
-        <div class="logo">
-            <img src="Picture1.png" alt="SmartBooking Logo" />
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="hotel.html">Hotels</a></li>
-                <li><a href="event.html">Events</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="userDash.html">User Dashboard</a></li>
-                <li><a href="adminDash.html">Admin Dashboard</a></li>
-                <li><a href="help.html">Help</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="contactUs.html">Contact Us</a></li>
-            </ul>
-        </nav>
-    </header>
+    </nav>
 
-    <div class="container">
-        <h1>Booking Form</h1>
-        <p class="text-muted">Please fill in the details below to book a hotel room or event ticket.</p>
+    <div class="container my-5">
+        <h1 class="text-center mb-3">Booking Form</h1>
+        <p class="text-center text-muted mb-5">
+            Please fill in the details below to book a hotel room or event ticket.
+        </p>
 
-        <form action="https://httpbin.org/get" method="get">
-            <fieldset>
-                <legend>Personal Information</legend>
-                <label for="fullName">Full Name *</label>
-                <input type="text" id="fullName" name="fullName" required />
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form action="https://httpbin.org/get" method="get" class="card shadow p-4 needs-validation" novalidate>
+                    <!-- Personal Information -->
+                    <fieldset class="mb-4">
+                        <legend class="h5 text-primary border-bottom pb-2">Personal Information</legend>
 
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required />
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required>
+                            <div class="invalid-feedback">Please provide your full name.</div>
+                        </div>
 
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+968-XXXXXXXX" />
-            </fieldset>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                        </div>
 
-            <fieldset>
-                <legend>Booking Type</legend>
-                <label><input type="radio" name="bookingType" value="hotel" checked /> Hotel Booking</label>
-                <label><input type="radio" name="bookingType" value="event" /> Event Booking</label>
-            </fieldset>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+968-XXXXXXXX">
+                        </div>
+                    </fieldset>
 
-            <fieldset>
-                <legend>Select Hotel / Event</legend>
-                <label for="itemName">Hotel or Event *</label>
-                <select id="itemName" name="itemName" required>
-                    <option value="">-- Please choose --</option>
-                    <option value="Crowne Plaza Hotel">Crowne Plaza Hotel</option>
-                    <option value="Mercure Hotel">Mercure Hotel</option>
-                    <option value="Intercontinental Hotel">Intercontinental Hotel</option>
-                    <option value="Wedding Reception">Wedding Reception</option>
-                    <option value="Graduation Ceremony">Graduation Ceremony</option>
-                    <option value="National Day Celebration">National Day Celebration</option>
-                </select>
-            </fieldset>
+                    <!-- Booking Type -->
+                    <fieldset class="mb-4">
+                        <legend class="h5 text-primary border-bottom pb-2">Booking Type</legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="bookingType" id="bookingHotel" value="hotel" checked>
+                            <label class="form-check-label" for="bookingHotel">Hotel Booking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="bookingType" id="bookingEvent" value="event">
+                            <label class="form-check-label" for="bookingEvent">Event Booking</label>
+                        </div>
+                    </fieldset>
 
-            <fieldset>
-                <legend>Dates & Guests</legend>
-                <div class="row">
-                    <div class="col">
-                        <label for="checkIn">Check-in Date (for hotels)</label>
-                        <input type="date" id="checkIn" name="checkInDate" />
+                    <!-- Hotel / Event Selection -->
+                    <fieldset class="mb-4">
+                        <legend class="h5 text-primary border-bottom pb-2">Select Hotel / Event</legend>
+
+                        <div class="mb-3">
+                            <label for="itemName" class="form-label">Hotel or Event *</label>
+                            <select id="itemName" name="itemName" class="form-select" required>
+                                <option value="">-- Please choose --</option>
+                                <optgroup label="Hotels">
+                                    <option value="Crowne Plaza Hotel">Crowne Plaza Hotel</option>
+                                    <option value="Mercure Hotel">Mercure Hotel</option>
+                                    <option value="Intercontinental Hotel">Intercontinental Hotel</option>
+                                </optgroup>
+                                <optgroup label="Events">
+                                    <option value="Wedding Reception">Wedding Reception</option>
+                                    <option value="Graduation Ceremony">Graduation Ceremony</option>
+                                    <option value="National Day Celebration">National Day Celebration</option>
+                                </optgroup>
+                            </select>
+                            <div class="invalid-feedback">Please select a hotel or event.</div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Dates & Numbers -->
+                    <fieldset class="mb-4">
+                        <legend class="h5 text-primary border-bottom pb-2">Dates & Guests</legend>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label for="checkIn" class="form-label">Check-in Date (for hotels)</label>
+                                <input type="date" id="checkIn" name="checkInDate" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="checkOut" class="form-label">Check-out Date (for hotels)</label>
+                                <input type="date" id="checkOut" name="checkOutDate" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="eventDate" class="form-label">Event Date (for events)</label>
+                                <input type="date" id="eventDate" name="eventDate" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="guests" class="form-label">Number of Guests / Tickets *</label>
+                            <input type="number" id="guests" name="guests" class="form-control" min="1" value="1" required>
+                            <div class="invalid-feedback">Please specify number of guests/tickets.</div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Special Requests -->
+                    <div class="mb-4">
+                        <label for="specialRequests" class="form-label">Special Requests</label>
+                        <textarea id="specialRequests" name="specialRequests" class="form-control" rows="4"
+                                  placeholder="Example: late check-in, wheelchair access, food allergies..."></textarea>
                     </div>
-                    <div class="col">
-                        <label for="checkOut">Check-out Date (for hotels)</label>
-                        <input type="date" id="checkOut" name="checkOutDate" />
+
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="reset" class="btn btn-secondary">Reset Form</button>
+                        <button type="submit" class="btn btn-primary">Submit Booking</button>
                     </div>
-                    <div class="col">
-                        <label for="eventDate">Event Date (for events)</label>
-                        <input type="date" id="eventDate" name="eventDate" />
-                    </div>
-                </div>
-
-                <label for="guests">Number of Guests / Tickets *</label>
-                <input type="number" id="guests" name="guests" min="1" value="1" required />
-            </fieldset>
-
-            <label for="specialRequests">Special Requests</label>
-            <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Example: late check-in, wheelchair access, food allergies..."></textarea>
-
-            <button type="submit" class="btn-primary">Submit Booking</button>
-            <button type="reset" class="btn-secondary">Reset Form</button>
-        </form>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        ©2025 Smart Booking | by Leader Team. All rights reserved
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Bootstrap form validation
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 </body>
 </html>

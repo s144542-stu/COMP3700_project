@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Calculator - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2 class="mb-0">Booking Cost Calculator</h2>
+                        <p class="mb-0 mt-2">Calculate your total booking cost with discounts and taxes</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="calculatorForm">
+                            <!-- Booking Type Selection -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Booking Type *</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bookingType" id="typeHotel" value="hotel" checked onchange="updateBookingType()">
+                                    <label class="form-check-label" for="typeHotel">Hotel Booking</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bookingType" id="typeEvent" value="event" onchange="updateBookingType()">
+                                    <label class="form-check-label" for="typeEvent">Event Ticket</label>
+                                </div>
+                            </div>
+
+                            <!-- Hotel Options (shown when hotel is selected) -->
+                            <div id="hotelOptions" class="mb-4">
+                                <label for="hotelSelect" class="form-label fw-bold">Select Hotel *</label>
+                                <select class="form-select" id="hotelSelect" onchange="updatePrice()">
+                                    <option value="45">Crowne Plaza Muscat - 45 OMR/night</option>
+                                    <option value="32">Mercure Muscat - 32 OMR/night</option>
+                                    <option value="28">Ibis Muscat - 28 OMR/night</option>
+                                </select>
+
+                                <label for="nights" class="form-label fw-bold mt-3">Number of Nights *</label>
+                                <input type="number" class="form-control" id="nights" min="1" value="1" onchange="calculateTotal()">
+                            </div>
+
+                            <!-- Event Options (hidden by default) -->
+                            <div id="eventOptions" class="mb-4" style="display: none;">
+                                <label for="eventSelect" class="form-label fw-bold">Select Event *</label>
+                                <select class="form-select" id="eventSelect" onchange="updatePrice()">
+                                    <option value="10">Winter Music Festival - 10 OMR</option>
+                                    <option value="3">Art Expo & Market - 3 OMR</option>
+                                    <option value="5">Food Carnival - 5 OMR</option>
+                                    <option value="25">New Year Gala - 25 OMR</option>
+                                </select>
+
+                                <label for="tickets" class="form-label fw-bold mt-3">Number of Tickets *</label>
+                                <input type="number" class="form-control" id="tickets" min="1" value="1" onchange="calculateTotal()">
+                            </div>
+
+                            <!-- Room/Ticket Type -->
+                            <div class="mb-4">
+                                <label for="roomType" class="form-label fw-bold">Room/Ticket Type *</label>
+                                <select class="form-select" id="roomType" onchange="calculateTotal()">
+                                    <option value="1">Standard (No extra charge)</option>
+                                    <option value="1.3">Deluxe (+30%)</option>
+                                    <option value="1.5">Suite/VIP (+50%)</option>
+                                </select>
+                            </div>
+
+                            <!-- Customer Age (for senior discount) -->
+                            <div class="mb-4">
+                                <label for="age" class="form-label fw-bold">Customer Age *</label>
+                                <input type="number" class="form-control" id="age" min="0" max="120" value="30" onchange="calculateTotal()">
+                                <small class="form-text text-muted">Senior citizens (60+) receive a 10% discount</small>
+                            </div>
+
+                            <!-- Loyalty Member -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="loyaltyMember" onchange="calculateTotal()">
+                                    <label class="form-check-label" for="loyaltyMember">
+                                        I am a loyalty member (5% additional discount)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Seasonal Promotion -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="seasonalPromo" onchange="calculateTotal()">
+                                    <label class="form-check-label" for="seasonalPromo">
+                                        Apply seasonal promotion (15% off - Limited time!)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Calculate Button -->
+                            <div class="d-grid mb-4">
+                                <button type="button" class="btn btn-success btn-lg" onclick="calculateTotal()">
+                                    Calculate Total Cost
+                                </button>
+                            </div>
+
+                            <!-- Results Display -->
+                            <div id="results" class="alert alert-info" style="display: none;">
+                                <h4 class="alert-heading">Cost Breakdown</h4>
+                                <hr>
+                                <div id="breakdown"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to update booking type display (show hotel or event options)
+        // This function is called when user changes the booking type radio button
+        function updateBookingType() {
+            const bookingType = document.querySelector('input[name="bookingType"]:checked').value;
+            const hotelOptions = document.getElementById('hotelOptions');
+            const eventOptions = document.getElementById('eventOptions');
+            
+            // Show/hide appropriate sections based on booking type
+            if (bookingType === 'hotel') {
+                hotelOptions.style.display = 'block';
+                eventOptions.style.display = 'none';
+            } else {
+                hotelOptions.style.display = 'none';
+                eventOptions.style.display = 'block';
+            }
+            
+            calculateTotal();
+        }
+
+        // Function to update price when selection changes
+        function updatePrice() {
+            calculateTotal();
+        }
+
+        // Main calculation function
+        // This function performs all the mathematical calculations with conditions
+        function calculateTotal() {
+            // Get booking type (hotel or event)
+            const bookingType = document.querySelector('input[name="bookingType"]:checked').value;
+            
+            // Declare variables for calculation
+            let basePrice = 0;      // Base price per unit
+            let quantity = 0;       // Number of nights or tickets
+            let subtotal = 0;       // Price before discounts
+            let discount = 0;       // Total discount amount
+            let finalTotal = 0;     // Final price after all calculations
+            
+            // Calculate base price and quantity based on booking type
+            if (bookingType === 'hotel') {
+                // For hotel bookings
+                basePrice = parseFloat(document.getElementById('hotelSelect').value);
+                quantity = parseInt(document.getElementById('nights').value);
+            } else {
+                // For event bookings
+                basePrice = parseFloat(document.getElementById('eventSelect').value);
+                quantity = parseInt(document.getElementById('tickets').value);
+            }
+            
+            // Get room/ticket type multiplier (1.0 for standard, 1.3 for deluxe, 1.5 for VIP)
+            const typeMultiplier = parseFloat(document.getElementById('roomType').value);
+            
+            // Calculate subtotal: (base price × quantity × type multiplier)
+            subtotal = basePrice * quantity * typeMultiplier;
+            
+            // Get customer age for senior discount eligibility
+            const age = parseInt(document.getElementById('age').value);
+            
+            // Initialize discount percentage
+            let discountPercentage = 0;
+            
+            // Conditional logic: Apply senior discount if age >= 60
+            if (age >= 60) {
+                discountPercentage += 10; // 10% senior discount
+            }
+            
+            // Conditional logic: Apply loyalty member discount if checked
+            const isLoyaltyMember = document.getElementById('loyaltyMember').checked;
+            if (isLoyaltyMember) {
+                discountPercentage += 5; // 5% loyalty discount
+            }
+            
+            // Conditional logic: Apply seasonal promotion if checked
+            const hasSeasonalPromo = document.getElementById('seasonalPromo').checked;
+            if (hasSeasonalPromo) {
+                discountPercentage += 15; // 15% seasonal promotion
+            }
+            
+            // Calculate discount amount: (subtotal × discount percentage / 100)
+            discount = subtotal * (discountPercentage / 100);
+            
+            // Calculate price after discount
+            const priceAfterDiscount = subtotal - discount;
+            
+            // Add tax (5% VAT): price after discount × 1.05
+            const tax = priceAfterDiscount * 0.05;
+            
+            // Calculate final total: price after discount + tax
+            finalTotal = priceAfterDiscount + tax;
+            
+            // Conditional logic: Apply special offer for large bookings
+            let specialOffer = '';
+            if ((bookingType === 'hotel' && quantity >= 7) || (bookingType === 'event' && quantity >= 10)) {
+                const bonusDiscount = finalTotal * 0.05; // Additional 5% off
+                finalTotal = finalTotal - bonusDiscount;
+                specialOffer = `<p class="text-success"><strong>🎉 Special Bonus:</strong> Additional 5% off for large booking (-${bonusDiscount.toFixed(2)} OMR)</p>`;
+            }
+            
+            // Display results with detailed breakdown
+            const resultsDiv = document.getElementById('results');
+            const breakdownDiv = document.getElementById('breakdown');
+            
+            // Create detailed breakdown HTML
+            let breakdownHTML = `
+                <p><strong>Booking Type:</strong> ${bookingType === 'hotel' ? 'Hotel' : 'Event'}</p>
+                <p><strong>Base Price:</strong> ${basePrice.toFixed(2)} OMR × ${quantity} ${bookingType === 'hotel' ? 'night(s)' : 'ticket(s)'}</p>
+                <p><strong>Type Multiplier:</strong> ${typeMultiplier}x</p>
+                <p><strong>Subtotal:</strong> ${subtotal.toFixed(2)} OMR</p>
+            `;
+            
+            // Add discount information if applicable
+            if (discountPercentage > 0) {
+                breakdownHTML += `<p class="text-success"><strong>Discounts Applied (${discountPercentage}%):</strong></p>`;
+                if (age >= 60) breakdownHTML += `<p class="ms-3">• Senior Citizen Discount (10%)</p>`;
+                if (isLoyaltyMember) breakdownHTML += `<p class="ms-3">• Loyalty Member Discount (5%)</p>`;
+                if (hasSeasonalPromo) breakdownHTML += `<p class="ms-3">• Seasonal Promotion (15%)</p>`;
+                breakdownHTML += `<p><strong>Total Discount:</strong> -${discount.toFixed(2)} OMR</p>`;
+                breakdownHTML += `<p><strong>Price After Discount:</strong> ${priceAfterDiscount.toFixed(2)} OMR</p>`;
+            }
+            
+            breakdownHTML += `
+                <p><strong>VAT (5%):</strong> +${tax.toFixed(2)} OMR</p>
+                ${specialOffer}
+                <hr>
+                <h5 class="text-primary"><strong>Final Total:</strong> ${finalTotal.toFixed(3)} OMR</h5>
+            `;
+            
+            breakdownDiv.innerHTML = breakdownHTML;
+            resultsDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Initialize calculator on page load
+        window.onload = function() {
+            updateBookingType();
+        };
+    </script>
+</body>
+</html>

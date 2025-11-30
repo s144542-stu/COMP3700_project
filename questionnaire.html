@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2 class="mb-0">Customer Feedback Questionnaire</h2>
+                        <p class="mb-0 mt-2">We value your opinion! Please share your experience with us.</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="feedbackForm" class="needs-validation" novalidate>
+                            <!-- Full Name -->
+                            <div class="mb-4">
+                                <label for="fullName" class="form-label fw-bold">Full Name *</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                                <div id="nameError" class="text-danger small mt-1"></div>
+                            </div>
+
+                            <!-- Email with Advanced Pattern Validation -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-bold">Email Address *</label>
+                                <input type="email" class="form-control" id="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                                <div id="emailError" class="text-danger small mt-1"></div>
+                                <small class="form-text text-muted">Must be a valid email from common domains (gmail, yahoo, outlook, etc.)</small>
+                            </div>
+
+                            <!-- Phone Number with Advanced Pattern -->
+                            <div class="mb-4">
+                                <label for="phone" class="form-label fw-bold">Phone Number *</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="+968-XXXXXXXX" required>
+                                <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                <div id="phoneError" class="text-danger small mt-1"></div>
+                                <small class="form-text text-muted">Format: +968-XXXXXXXX (Oman format)</small>
+                            </div>
+
+                            <!-- Rating (Radio Buttons) -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Overall Experience Rating *</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating5" value="5" required>
+                                    <label class="form-check-label" for="rating5">⭐⭐⭐⭐⭐ Excellent</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
+                                    <label class="form-check-label" for="rating4">⭐⭐⭐⭐ Very Good</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                                    <label class="form-check-label" for="rating3">⭐⭐⭐ Good</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
+                                    <label class="form-check-label" for="rating2">⭐⭐ Fair</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
+                                    <label class="form-check-label" for="rating1">⭐ Poor</label>
+                                </div>
+                                <div class="invalid-feedback d-block" id="ratingError"></div>
+                            </div>
+
+                            <!-- Service Type (Checkboxes) -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Which services did you use? (Select all that apply)</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceHotel" value="hotel">
+                                    <label class="form-check-label" for="serviceHotel">Hotel Booking</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceEvent" value="event">
+                                    <label class="form-check-label" for="serviceEvent">Event Ticket Booking</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceSupport" value="support">
+                                    <label class="form-check-label" for="serviceSupport">Customer Support</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="serviceOther" value="other">
+                                    <label class="form-check-label" for="serviceOther">Other Services</label>
+                                </div>
+                            </div>
+
+                            <!-- Booking ID with Custom Validation Pattern -->
+                            <div class="mb-4">
+                                <label for="bookingId" class="form-label fw-bold">Booking ID (if applicable)</label>
+                                <input type="text" class="form-control" id="bookingId" placeholder="e.g., B001, B123">
+                                <div id="bookingIdError" class="text-danger small mt-1"></div>
+                                <small class="form-text text-muted">Format: B followed by 3 or 4 digits (e.g., B001, B1234)</small>
+                            </div>
+
+                            <!-- Visit Date -->
+                            <div class="mb-4">
+                                <label for="visitDate" class="form-label fw-bold">Date of Service *</label>
+                                <input type="date" class="form-control" id="visitDate" required>
+                                <div class="invalid-feedback">Please select the date of service.</div>
+                            </div>
+
+                            <!-- Feedback Text Area -->
+                            <div class="mb-4">
+                                <label for="feedback" class="form-label fw-bold">Your Feedback *</label>
+                                <textarea class="form-control" id="feedback" rows="5" placeholder="Please share your experience with us..." required></textarea>
+                                <div class="invalid-feedback">Please provide your feedback.</div>
+                            </div>
+
+                            <!-- Recommend (Select Dropdown) -->
+                            <div class="mb-4">
+                                <label for="recommend" class="form-label fw-bold">Would you recommend us? *</label>
+                                <select class="form-select" id="recommend" required>
+                                    <option value="">-- Please select --</option>
+                                    <option value="definitely">Definitely Yes</option>
+                                    <option value="probably">Probably Yes</option>
+                                    <option value="maybe">Maybe</option>
+                                    <option value="probably_not">Probably Not</option>
+                                    <option value="definitely_not">Definitely Not</option>
+                                </select>
+                                <div class="invalid-feedback">Please select an option.</div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="reset" class="btn btn-secondary me-md-2">Reset Form</button>
+                                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Custom validation functions with advanced patterns
+
+        // Validation 1: Full Name - Must contain at least first and last name (2+ words)
+        // Pattern: At least 2 words separated by space, each word starting with capital letter
+        function validateFullName() {
+            const nameInput = document.getElementById('fullName');
+            const nameError = document.getElementById('nameError');
+            const name = nameInput.value.trim();
+            
+            // Advanced pattern: At least 2 words, each starting with capital, containing only letters
+            const namePattern = /^[A-Z][a-z]+(\s[A-Z][a-z]+)+$/;
+            
+            if (!namePattern.test(name)) {
+                nameError.textContent = 'Please enter at least first and last name (e.g., John Smith). Each word should start with a capital letter.';
+                nameInput.classList.add('is-invalid');
+                return false;
+            } else {
+                nameError.textContent = '';
+                nameInput.classList.remove('is-invalid');
+                nameInput.classList.add('is-valid');
+                return true;
+            }
+        }
+
+        // Validation 2: Email - Advanced email validation with domain restrictions
+        // Pattern: Valid email format from common domains only
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const email = emailInput.value.trim();
+            
+            // Advanced pattern: Email must be from common domains (gmail, yahoo, outlook, hotmail, squ.edu.om)
+            const emailPattern = /^[a-zA-Z0-9._-]+@(gmail|yahoo|outlook|hotmail|squ\.edu)\.(com|om)$/;
+            
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email from common domains (gmail.com, yahoo.com, outlook.com, hotmail.com, or squ.edu.om)';
+                emailInput.classList.add('is-invalid');
+                return false;
+            } else {
+                emailError.textContent = '';
+                emailInput.classList.remove('is-invalid');
+                emailInput.classList.add('is-valid');
+                return true;
+            }
+        }
+
+        // Validation 3: Phone Number - Oman phone format (+968-XXXXXXXX)
+        // Pattern: Must start with +968 followed by hyphen and exactly 8 digits
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            const phone = phoneInput.value.trim();
+            
+            // Advanced pattern: Oman phone format +968- followed by 8 digits
+            const phonePattern = /^\+968-\d{8}$/;
+            
+            if (!phonePattern.test(phone)) {
+                phoneError.textContent = 'Phone number must be in format: +968-XXXXXXXX (8 digits after +968-)';
+                phoneInput.classList.add('is-invalid');
+                return false;
+            } else {
+                phoneError.textContent = '';
+                phoneInput.classList.remove('is-invalid');
+                phoneInput.classList.add('is-valid');
+                return true;
+            }
+        }
+
+        // Validation 4: Booking ID (Optional field but validates if filled)
+        // Pattern: B followed by 3 or 4 digits
+        function validateBookingId() {
+            const bookingIdInput = document.getElementById('bookingId');
+            const bookingIdError = document.getElementById('bookingIdError');
+            const bookingId = bookingIdInput.value.trim();
+            
+            // If empty, it's optional so return true
+            if (bookingId === '') {
+                bookingIdError.textContent = '';
+                bookingIdInput.classList.remove('is-invalid', 'is-valid');
+                return true;
+            }
+            
+            // Advanced pattern: B followed by 3 or 4 digits (e.g., B001, B123, B1234)
+            const bookingIdPattern = /^B\d{3,4}$/;
+            
+            if (!bookingIdPattern.test(bookingId)) {
+                bookingIdError.textContent = 'Booking ID must start with "B" followed by 3 or 4 digits (e.g., B001, B1234)';
+                bookingIdInput.classList.add('is-invalid');
+                return false;
+            } else {
+                bookingIdError.textContent = '';
+                bookingIdInput.classList.remove('is-invalid');
+                bookingIdInput.classList.add('is-valid');
+                return true;
+            }
+        }
+
+        // Add real-time validation event listeners
+        document.getElementById('fullName').addEventListener('blur', validateFullName);
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('phone').addEventListener('blur', validatePhone);
+        document.getElementById('bookingId').addEventListener('blur', validateBookingId);
+
+        // Form submission handler
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Run all validations
+            const isNameValid = validateFullName();
+            const isEmailValid = validateEmail();
+            const isPhoneValid = validatePhone();
+            const isBookingIdValid = validateBookingId();
+            
+            // Check if rating is selected
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const ratingError = document.getElementById('ratingError');
+            if (!rating) {
+                ratingError.textContent = 'Please select a rating.';
+                return;
+            } else {
+                ratingError.textContent = '';
+            }
+            
+            // Bootstrap validation
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+            
+            // Check all custom validations
+            if (isNameValid && isEmailValid && isPhoneValid && isBookingIdValid) {
+                // All validations passed
+                alert('Thank you for your feedback! Your response has been submitted successfully.');
+                this.reset();
+                this.classList.remove('was-validated');
+                // Remove all validation classes
+                document.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+                    el.classList.remove('is-valid', 'is-invalid');
+                });
+            } else {
+                alert('Please correct the errors in the form before submitting.');
+            }
+        });
+
+        // Reset form validation on reset button
+        document.querySelector('button[type="reset"]').addEventListener('click', function() {
+            document.getElementById('feedbackForm').classList.remove('was-validated');
+            document.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+                el.classList.remove('is-valid', 'is-invalid');
+            });
+            document.querySelectorAll('.text-danger').forEach(el => {
+                el.textContent = '';
+            });
+        });
+    </script>
+</body>
+</html>

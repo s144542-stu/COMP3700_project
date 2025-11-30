@@ -3,173 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        .event-container {
-            max-width: 950px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .event-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 35px;
-        }
-
-        .event-table th, .event-table td {
-            border: 1px solid #333;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .event-title {
-            background-color: #e7f0ff;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .book-btn {
-            background-color: #005bbb;
-            color: #fff;
-            padding: 8px 14px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .book-btn:hover {
-            background-color: #004999;
-        }
-
-        .event-img {
-            width: 120px;
-            border-radius: 5px;
-        }
-    </style>
-
+    <title>Events - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <header class="top-bar">
-        <div class="logo">
-            <img src="Picture1.png" alt="SmartBooking Logo">
+    <div class="container my-5">
+        <h2 class="text-center text-primary mb-2">Upcoming Events</h2>
+        <p class="text-center text-muted mb-4">Explore popular events and book your ticket instantly.</p>
+
+        <!-- Events Table (Dynamically Generated) -->
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered table-striped text-center" id="eventsTable">
+                <thead class="table-warning">
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Price</th>
+                        <th>Venue</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="eventsTableBody">
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
         </div>
 
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="hotel.html">Hotels</a></li>
-                <li><a href="event.html">Events</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="userDash.html">User Dashboard</a></li>
-                <li><a href="adminDash.html">Admin Dashboard</a></li>
-                <li><a href="help.html">Help</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="contactUs.html">Contact Us</a></li>
-            </ul>
-        </nav>
-    </header>
+        <!-- Add New Event Form -->
+        <div class="card mb-5">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Event</h5>
+            </div>
+            <div class="card-body">
+                <form id="addEventForm" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="eventName" class="form-label">Event Name</label>
+                        <input type="text" class="form-control" id="eventName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="eventVenue" class="form-label">Venue</label>
+                        <input type="text" class="form-control" id="eventVenue" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="eventDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="eventDate" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="eventTime" class="form-label">Time</label>
+                        <input type="time" class="form-control" id="eventTime" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="eventPrice" class="form-label">Price (OMR)</label>
+                        <input type="number" class="form-control" id="eventPrice" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-
-
-    <div class="event-container">
-
-        <h1>Upcoming Events</h1>
-        <p>Select an event below and book your ticket instantly.</p>
-
-
-        <table class="event-table">
-            <tr>
-                <th rowspan="3"><img src="e1.jpg" alt="Event 1" class="event-img"></th>
-                <th colspan="2" class="event-title">Wedding Reception</th>
-            </tr>
-            <tr>
-                <td>Date</td>
-                <td>12 December 2025</td>
-            </tr>
-            <tr>
-                <td>Price</td>
-                <td>7 OMR (standard), 10 OMR (VIP)</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <form action="https://httpbin.org/get" method="get">
-                        <input type="hidden" name="event" value="Wedding Reception">
-                        <button type="submit" class="book-btn">Book Ticket</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-
-
-        <table class="event-table">
-            <tr>
-                <th rowspan="3"><img src="/part2/web_part2/web_part2/" alt="Event 2" class="event-img"></th>
-                <th colspan="2" class="event-title">National Day Celebration</th>
-            </tr>
-            <tr>
-                <td>Date</td>
-                <td>18 November 2025</td>
-            </tr>
-            <tr>
-                <td>Price</td>
-                <td>5 OMR</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <form action="https://httpbin.org/get" method="get">
-                        <input type="hidden" name="event" value="National Day Celebration">
-                        <button type="submit" class="book-btn">Book Ticket</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-
-
+        <!-- Search Events -->
+        <div class="card mb-5">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Search Events</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by event name or venue...">
+                    </div>
+                    <div class="col-md-4">
+                        <button onclick="searchEvents()" class="btn btn-success w-100">Search</button>
+                    </div>
+                </div>
+                <div id="searchResults" class="mt-3"></div>
+            </div>
+        </div>
     </div>
 
-    <form action="https://httpbin.org/get" method="get" class="event-search-form">
-
-        <fieldset>
-            <legend>Search for an Event</legend>
-
-            <label for="eventSelect">Event *</label>
-            <select id="eventSelect" name="event" required>
-                <option value="">-- Select an Event --</option>
-                <option value="Wedding Reception">Wedding Reception</option>
-                <option value="Graduation Ceremony">Graduation Ceremony</option>
-                <option value="National Day Celebration">National Day Celebration</option>
-                <option value="Gala Night">New Year Gala Night</option>
-            </select>
-
-            <label for="eventDate">Event Date *</label>
-            <input type="date" id="eventDate" name="date" required>
-
-            <label for="tickets">Number of Tickets *</label>
-            <input type="number" id="tickets" name="tickets" min="1" value="1" required>
-
-            <p><strong>Seating Type</strong></p>
-            <label><input type="radio" name="seating" value="Standard" checked> Standard</label>
-            <label><input type="radio" name="seating" value="VIP"> VIP</label>
-            <label><input type="radio" name="seating" value="VVIP"> VVIP</label>
-
-            <label>
-                <input type="checkbox" name="includeMeal" value="yes">
-                Include Meal with Ticket
-            </label>
-        </fieldset>
-
-        <input type="submit" value="Search Events" class="btn-primary">
-    </form>
-
-    <footer class="footer">
-        ©2025 Smart Booking | by Leader Team. All rights reserved.
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Event Constructor Function - Creates event objects with specified properties
+        function Event(name, date, time, price, venue) {
+            this.name = name;       // Event name/title
+            this.date = date;       // Event date
+            this.time = time;       // Event time
+            this.price = price;     // Ticket price in OMR
+            this.venue = venue;     // Event venue/location
+        }
+
+        // Initialize events array with sample data using the Event constructor
+        let events = [
+            new Event("Winter Music Festival", "2025-12-20", "7:00 PM", 10, "Grand Arena"),
+            new Event("Winter Music Festival", "2025-12-21", "7:00 PM", 10, "Grand Arena"),
+            new Event("Art Expo & Market", "2026-01-05", "4:00 PM", 3, "City Gallery"),
+            new Event("Food Carnival", "2026-02-10", "12:00 PM", 5, "Waterfront Park"),
+            new Event("New Year Gala Night", "2025-12-31", "8:00 PM", 25, "Royal Ballroom"),
+            new Event("National Day Concert", "2026-11-18", "6:00 PM", 8, "Outdoor Stadium")
+        ];
+
+        // Function to display events in the table
+        // This function iterates through the events array and creates table rows dynamically
+        function displayEvents() {
+            const tbody = document.getElementById('eventsTableBody');
+            tbody.innerHTML = ''; // Clear existing rows
+            
+            // Loop through each event in the array
+            events.forEach((event, index) => {
+                // Create a new table row
+                const row = tbody.insertRow();
+                
+                // Format the date to be more readable
+                const formattedDate = new Date(event.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Add cells with event data
+                row.insertCell(0).innerHTML = `<strong>${event.name}</strong>`;
+                row.insertCell(1).textContent = formattedDate;
+                row.insertCell(2).textContent = event.time;
+                row.insertCell(3).textContent = `${event.price} OMR`;
+                row.insertCell(4).textContent = event.venue;
+                row.insertCell(5).innerHTML = `<a href="booking.html?event=${encodeURIComponent(event.name)}" class="btn btn-primary btn-sm">Book Ticket</a>`;
+            });
+        }
+
+        // Handle form submission to add new event
+        document.getElementById('addEventForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            
+            // Get form values
+            const name = document.getElementById('eventName').value;
+            const venue = document.getElementById('eventVenue').value;
+            const date = document.getElementById('eventDate').value;
+            const time = document.getElementById('eventTime').value;
+            const price = parseInt(document.getElementById('eventPrice').value);
+            
+            // Create new event object and add to array
+            const newEvent = new Event(name, date, time, price, venue);
+            events.push(newEvent);
+            
+            // Refresh the table display
+            displayEvents();
+            
+            // Reset form and show success message
+            this.reset();
+            alert('Event added successfully!');
+        });
+
+        // Search function to filter events by name or venue
+        function searchEvents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            
+            // Filter events array based on search term
+            const results = events.filter(event => 
+                event.name.toLowerCase().includes(searchTerm) || 
+                event.venue.toLowerCase().includes(searchTerm)
+            );
+            
+            // Display search results
+            if (results.length > 0) {
+                let html = '<div class="alert alert-success">Found ' + results.length + ' event(s):</div>';
+                html += '<div class="row g-3">';
+                results.forEach(event => {
+                    const formattedDate = new Date(event.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    html += `
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${event.name}</h5>
+                                    <p class="card-text">
+                                        <strong>Date:</strong> ${formattedDate}<br>
+                                        <strong>Time:</strong> ${event.time}<br>
+                                        <strong>Venue:</strong> ${event.venue}<br>
+                                        <strong>Price:</strong> ${event.price} OMR
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+            } else {
+                resultsDiv.innerHTML = '<div class="alert alert-warning">No events found matching your search.</div>';
+            }
+        }
+
+        // Initialize table when page loads
+        window.onload = function() {
+            displayEvents();
+        };
+    </script>
 </body>
 </html>

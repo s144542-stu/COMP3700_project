@@ -3,182 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotels</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        .page-container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #003366;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-        }
-
-        th, td {
-            border: 1px solid #444;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #e0eaf6;
-        }
-
-        .book-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            text-decoration: none;
-            background-color: #0055aa;
-            color: white;
-            border-radius: 4px;
-        }
-
-        .book-btn:hover {
-            background-color: #003f7d;
-        }
-
-        .hotel-img {
-            width: 120px;
-            height: auto;
-            border-radius: 6px;
-        }
-        .hotel-search-form {
-            border: 1px solid #ddd;
-            background: #fafafa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-    </style>
+    <title>Hotels - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <header class="top-bar">
-        <div class="logo">
-            <img src="Picture1.png" alt="SmartBooking Logo">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="hotel.html">Hotels</a></li>
-                <li><a href="event.html">Events</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="userDash.html">User Dashboard</a></li>
-                <li><a href="adminDash.html">Admin Dashboard</a></li>
-                <li><a href="help.html">Help</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="contactUs.html">Contact Us</a></li>
-            </ul>
-        </nav>
-    </header>
+    </nav>
 
-    <div class="page-container">
-        <h1>Available Hotels</h1>
+    <div class="container my-5">
+        <h2 class="text-center text-primary mb-4">Available Hotels</h2>
+        
+        <!-- Hotels Table (Dynamically Generated) -->
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered table-striped text-center" id="hotelsTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Hotel Details</th>
+                        <th>Price / Night</th>
+                        <th>Rating</th>
+                        <th>Room Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="hotelsTableBody">
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
 
-        <p style="text-align:center; color: #555;">
-            Browse our hotel options and choose the room that fits your preference.
-        </p>
+        <!-- Add New Hotel Form -->
+        <div class="card mb-5">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Hotel</h5>
+            </div>
+            <div class="card-body">
+                <form id="addHotelForm" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="hotelName" class="form-label">Hotel Name</label>
+                        <input type="text" class="form-control" id="hotelName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="hotelLocation" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="hotelLocation" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="hotelPrice" class="form-label">Price (OMR)</label>
+                        <input type="number" class="form-control" id="hotelPrice" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="hotelRating" class="form-label">Rating (1-5)</label>
+                        <input type="number" class="form-control" id="hotelRating" min="1" max="5" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="hotelRoomType" class="form-label">Room Type</label>
+                        <input type="text" class="form-control" id="hotelRoomType" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="hotelImage" class="form-label">Image URL</label>
+                        <input type="text" class="form-control" id="hotelImage" value="f1.webp">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Add Hotel</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-        <table>
-            <tr>
-                <th>Image</th>
-                <th>Hotel</th>
-                <th>Price</th>
-                <th>Rating</th>
-                <th>Room Type</th>
-                <th>Action</th>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><img src="f1.webp" class="hotel-img"></td>
-                <td rowspan="2"><strong>Crowne Plaza Muscat</strong><br>Muscat, Oman</td>
-                <td rowspan="2">45 OMR</td>
-                <td rowspan="2">★★★★☆</td>
-                <td>Standard Room</td>
-                <td><a href="booking.html?hotel=crowne-standard" class="book-btn">Book</a></td>
-            </tr>
-            <tr>
-                <td>Deluxe Room</td>
-                <td><a href="booking.html?hotel=crowne-deluxe" class="book-btn">Book</a></td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><img src="f2.webp" class="hotel-img"></td>
-                <td rowspan="2"><strong>Mercure Hotel</strong><br>Muscat, Oman</td>
-                <td rowspan="2">35 OMR</td>
-                <td rowspan="2">★★★☆☆</td>
-                <td>Standard Room</td>
-                <td><a href="booking.html?hotel=mercure-standard" class="book-btn">Book</a></td>
-            </tr>
-            <tr>
-                <td>Double Room</td>
-                <td><a href="booking.html?hotel=mercure-double" class="book-btn">Book</a></td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"><img src="/part2/web_part2/web_part2/f3.webp" class="hotel-img" alt="ibis Hotel"></td>
-                <td rowspan="2"><strong>Ibis Muscat</strong><br>Muscat, Oman</td>
-                <td rowspan="2">30 OMR</td>
-                <td rowspan="2">★★★☆☆</td>
-                <td>Standard Room</td>
-                <td><a href="booking.html?hotel=ibis-standard" class="book-btn">Book</a></td>
-            </tr>
-            <tr>
-                <td>Double Room</td>
-                <td><a href="booking.html?hotel=ibis-double" class="book-btn">Book</a></td>
-            </tr>
-
-        </table>
-
+        <!-- Search Hotels -->
+        <div class="card mb-5">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Search Hotels</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by hotel name or location...">
+                    </div>
+                    <div class="col-md-4">
+                        <button onclick="searchHotels()" class="btn btn-success w-100">Search</button>
+                    </div>
+                </div>
+                <div id="searchResults" class="mt-3"></div>
+            </div>
+        </div>
     </div>
-    <form action="https://httpbin.org/get" method="get" class="hotel-search-form">
 
-        <fieldset>
-            <legend>Search for a Hotel</legend>
-
-            <label for="city">City *</label>
-            <input type="text" id="city" name="city" required>
-
-            <label for="hotelSelect">Hotel *</label>
-            <select id="hotelSelect" name="hotel">
-                <option value="">-- Select a Hotel --</option>
-                <option value="Crowne Plaza">Crowne Plaza</option>
-                <option value="Mercure">Mercure</option>
-                <option value="Ibis">Ibis</option>
-            </select>
-
-            <label for="checkIn">Check-in Date</label>
-            <input type="date" id="checkIn" name="checkIn">
-
-            <label for="checkOut">Check-out Date</label>
-            <input type="date" id="checkOut" name="checkOut">
-
-            <label for="guests">Number of Guests *</label>
-            <input type="number" id="guests" name="guests" min="1" value="1" required>
-
-            <label>
-                <input type="checkbox" name="includeBreakfast" value="yes">
-                Include Breakfast
-            </label>
-        </fieldset>
-
-        <input type="submit" value="Search Hotels" class="btn-primary">
-    </form>
-
-    <footer class="footer-bar">
-        ©2025 Smart Booking | by Leader Team. All rights reserved.
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hotel Constructor Function - Creates hotel objects with specified properties
+        function Hotel(name, location, price, rating, roomType, image) {
+            this.name = name;           // Hotel name
+            this.location = location;   // Hotel location/address
+            this.price = price;         // Price per night in OMR
+            this.rating = rating;       // Rating out of 5 stars
+            this.roomType = roomType;   // Type of room (Standard, Deluxe, Suite)
+            this.image = image;         // Image filename/URL
+        }
+
+        // Initialize hotels array with sample data using the Hotel constructor
+        let hotels = [
+            new Hotel("Crowne Plaza Muscat", "Muscat, Oman", 45, 4, "Standard Room", "f1.webp"),
+            new Hotel("Crowne Plaza Muscat", "Muscat, Oman", 65, 4, "Deluxe Room", "f1.webp"),
+            new Hotel("Mercure Muscat", "Al Khuwair, Muscat", 32, 3, "Standard Room", "f2.webp"),
+            new Hotel("Mercure Muscat", "Al Khuwair, Muscat", 50, 3, "Suite", "f2.webp"),
+            new Hotel("Ibis Muscat", "Muscat, Oman", 28, 3, "Standard Room", "f3.webp"),
+            new Hotel("Ibis Muscat", "Muscat, Oman", 38, 3, "Deluxe Room", "f3.webp")
+        ];
+
+        // Function to display hotels in the table
+        // This function iterates through the hotels array and creates table rows dynamically
+        function displayHotels() {
+            const tbody = document.getElementById('hotelsTableBody');
+            tbody.innerHTML = ''; // Clear existing rows
+            
+            // Loop through each hotel in the array
+            hotels.forEach((hotel, index) => {
+                // Create a new table row
+                const row = tbody.insertRow();
+                
+                // Add cells with hotel data
+                row.insertCell(0).innerHTML = `<img src="${hotel.image}" alt="${hotel.name}" width="120" class="img-thumbnail">`;
+                row.insertCell(1).innerHTML = `<strong>${hotel.name}</strong><br>${hotel.location}`;
+                row.insertCell(2).textContent = `${hotel.price} OMR`;
+                row.insertCell(3).textContent = '★'.repeat(hotel.rating) + '☆'.repeat(5 - hotel.rating);
+                row.insertCell(4).textContent = hotel.roomType;
+                row.insertCell(5).innerHTML = `<a href="booking.html?hotel=${encodeURIComponent(hotel.name)}" class="btn btn-primary btn-sm">Book</a>`;
+            });
+        }
+
+        // Handle form submission to add new hotel
+        document.getElementById('addHotelForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+            
+            // Get form values
+            const name = document.getElementById('hotelName').value;
+            const location = document.getElementById('hotelLocation').value;
+            const price = parseInt(document.getElementById('hotelPrice').value);
+            const rating = parseInt(document.getElementById('hotelRating').value);
+            const roomType = document.getElementById('hotelRoomType').value;
+            const image = document.getElementById('hotelImage').value;
+            
+            // Create new hotel object and add to array
+            const newHotel = new Hotel(name, location, price, rating, roomType, image);
+            hotels.push(newHotel);
+            
+            // Refresh the table display
+            displayHotels();
+            
+            // Reset form and show success message
+            this.reset();
+            alert('Hotel added successfully!');
+        });
+
+        // Search function to filter hotels by name or location
+        function searchHotels() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            
+            // Filter hotels array based on search term
+            const results = hotels.filter(hotel => 
+                hotel.name.toLowerCase().includes(searchTerm) || 
+                hotel.location.toLowerCase().includes(searchTerm)
+            );
+            
+            // Display search results
+            if (results.length > 0) {
+                let html = '<div class="alert alert-success">Found ' + results.length + ' hotel(s):</div>';
+                html += '<div class="row g-3">';
+                results.forEach(hotel => {
+                    html += `
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${hotel.name}</h5>
+                                    <p class="card-text">
+                                        <strong>Location:</strong> ${hotel.location}<br>
+                                        <strong>Room Type:</strong> ${hotel.roomType}<br>
+                                        <strong>Price:</strong> ${hotel.price} OMR<br>
+                                        <strong>Rating:</strong> ${'★'.repeat(hotel.rating)}${'☆'.repeat(5 - hotel.rating)}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                resultsDiv.innerHTML = html;
+            } else {
+                resultsDiv.innerHTML = '<div class="alert alert-warning">No hotels found matching your search.</div>';
+            }
+        }
+
+        // Initialize table when page loads
+        window.onload = function() {
+            displayHotels();
+        };
+    </script>
 </body>
 </html>

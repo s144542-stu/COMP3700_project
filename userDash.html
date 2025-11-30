@@ -3,347 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard – SmartBooking</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        .page-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .page-title {
-            margin-bottom: 8px;
-            color: #003366;
-        }
-
-        .page-intro {
-            margin-bottom: 20px;
-            color: #555555;
-        }
-
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
-        }
-
-        .user-sidebar {
-            border: 1px solid #dddddd;
-            border-radius: 6px;
-            padding: 16px;
-            background-color: #f9f9f9;
-        }
-
-        .user-info {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #dde6f5;
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #003366;
-            font-weight: bold;
-        }
-
-        .user-name {
-            font-weight: bold;
-            color: #003366;
-        }
-
-        .user-email {
-            font-size: 0.9rem;
-            color: #666666;
-        }
-
-        .sidebar-menu h3 {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: #003366;
-        }
-
-        .sidebar-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 10px 0;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 6px;
-        }
-
-        .sidebar-menu a {
-            text-decoration: none;
-            color: #333333;
-            font-size: 0.95rem;
-        }
-
-        .sidebar-menu a:hover {
-            text-decoration: underline;
-        }
-
-        .small-note {
-            font-size: 0.9rem;
-            color: #666666;
-        }
-
-        .panel {
-            border: 1px solid #dddddd;
-            border-radius: 6px;
-            margin-bottom: 24px;
-            background-color: #f9f9f9;
-        }
-
-        .panel-header {
-            padding: 10px 16px;
-            background-color: #e3f2fd;
-            border-bottom: 1px solid #dddddd;
-            font-weight: bold;
-        }
-
-        .panel-body {
-            padding: 16px;
-        }
-
-        .stat-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .stat-card {
-            border: 1px solid #d0d7e6;
-            border-radius: 6px;
-            padding: 10px 12px;
-            background-color: #ffffff;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: #666666;
-            margin-bottom: 4px;
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #003366;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-            background-color: #ffffff;
-        }
-
-        .admin-table th,
-        .admin-table td {
-            border: 1px solid #cccccc;
-            padding: 8px;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        .admin-table thead th {
-            background-color: #f0f4ff;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .status-confirmed {
-            background-color: #c8e6c9;
-            color: #256029;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status-cancelled {
-            background-color: #ffcdd2;
-            color: #b71c1c;
-        }
-
-        .btn-primary, .btn-secondary {
-            display: inline-block;
-            padding: 8px 14px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            color: #ffffff;
-        }
-
-        .btn-secondary:hover {
-            background-color: #545b62;
-        }
-
-        .panel-actions {
-            margin-top: 8px;
-        }
-
-        @media (max-width: 800px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>User Dashboard - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <header class="top-bar">
-        <div class="logo">
-            <img src="Picture1.png" alt="SmartBooking Logo">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="hotel.html">Hotels</a></li>
-                <li><a href="event.html">Events</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="userDash.html" class="active">User Dashboard</a></li>
-                <li><a href="adminDash.html">Admin Dashboard</a></li>
-                <li><a href="help.html">Help</a></li>
-                <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="contactUs.html">Contact Us</a></li>
-            </ul>
-        </nav>
-    </header>
+    </nav>
 
-    
+    <div class="container my-5">
+        <h1 class="mb-3">User Dashboard</h1>
+        <p class="text-muted mb-4">
+            This page shows the user profile, booking history, and current reservation status.
+        </p>
 
-                <section class="panel">
-                    <div class="panel-header">
-                        Upcoming Bookings (Sample Data)
+        <!-- User Profile Card -->
+        <div class="row mb-4">
+            <div class="col-lg-4 mb-3">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Profile Information</h5>
                     </div>
-                    <div class="panel-body">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Booking ID</th>
-                                    <th>Type</th>
-                                    <th>Item</th>
-                                    <th>Date / Period</th>
-                                    <th>Guests / Tickets</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#B010</td>
-                                    <td>Hotel</td>
-                                    <td>Crowne Plaza Muscat – Sea View Room</td>
-                                    <td>20 Dec 2025 – 23 Dec 2025</td>
-                                    <td>2 Adults</td>
-                                    <td><span class="status status-confirmed">Confirmed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#B011</td>
-                                    <td>Event</td>
-                                    <td>New Year Gala Night – VIP Ticket</td>
-                                    <td>31 Dec 2025</td>
-                                    <td>3 Tickets</td>
-                                    <td><span class="status status-pending">Pending</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <p class="mb-2"><strong>Name:</strong> Ahmed Al-alawi</p>
+                        <p class="mb-2"><strong>Email:</strong> ahmood@example.com</p>
+                        <p class="mb-2"><strong>Phone:</strong> +968-91234567</p>
+                        <p class="mb-0"><strong>Member Since:</strong> Jan 2024</p>
+                        <button class="btn btn-sm btn-outline-primary mt-3 w-100">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="panel-actions">
-                            <a href="#" class="btn-secondary">View All Upcoming</a>
+            <div class="col-lg-8">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm text-center">
+                            <div class="card-body">
+                                <h6 class="text-muted">Total Bookings</h6>
+                                <h2 class="text-primary mb-0">3</h2>
+                            </div>
                         </div>
                     </div>
-                </section>
-
-                <section class="panel">
-                    <div class="panel-header">
-                        Booking History (Sample Data)
-                    </div>
-                    <div class="panel-body">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Booking ID</th>
-                                    <th>Type</th>
-                                    <th>Item</th>
-                                    <th>Date / Period</th>
-                                    <th>Guests / Tickets</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#B004</td>
-                                    <td>Hotel</td>
-                                    <td>Mercure Muscat – Standard Room</td>
-                                    <td>10 Oct 2025 – 12 Oct 2025</td>
-                                    <td>2 Adults</td>
-                                    <td><span class="status status-confirmed">Completed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#B005</td>
-                                    <td>Event</td>
-                                    <td>Graduation Ceremony – Standard Ticket</td>
-                                    <td>01 Sep 2025</td>
-                                    <td>4 Tickets</td>
-                                    <td><span class="status status-confirmed">Completed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#B006</td>
-                                    <td>Hotel</td>
-                                    <td>ibis Muscat – Double Room</td>
-                                    <td>15 Aug 2025 – 17 Aug 2025</td>
-                                    <td>2 Adults + 1 Child</td>
-                                    <td><span class="status status-cancelled">Cancelled</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="panel-actions">
-                            <a href="#" class="btn-secondary">View Full History</a>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm text-center">
+                            <div class="card-body">
+                                <h6 class="text-muted">Active Bookings</h6>
+                                <h2 class="text-success mb-0">2</h2>
+                            </div>
                         </div>
                     </div>
-                </section>
-            </section>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm text-center">
+                            <div class="card-body">
+                                <h6 class="text-muted">Total Spent</h6>
+                                <h2 class="text-info mb-0">235 OMR</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
 
-    <footer class="site-footer">
-        ©2025 Smart Booking | by Leader Team. All rights reserved
+        <!-- Booking History -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Detailed Booking History</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th rowspan="2">Booking ID</th>
+                                <th rowspan="2">Type</th>
+                                <th rowspan="2">Item</th>
+                                <th colspan="2" class="text-center">Details</th>
+                                <th rowspan="2">Status</th>
+                                <th rowspan="2">Actions</th>
+                            </tr>
+                            <tr>
+                                <th>Date / Period</th>
+                                <th>Guests / Tickets</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#B001</td>
+                                <td><span class="badge bg-info">Hotel</span></td>
+                                <td>Crowne Plaza Muscat – Standard Room</td>
+                                <td>10 Dec 2025 – 12 Dec 2025</td>
+                                <td>2 Adults</td>
+                                <td><span class="badge bg-success">Confirmed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#B002</td>
+                                <td><span class="badge bg-warning text-dark">Event</span></td>
+                                <td>New Year Gala Night – VIP</td>
+                                <td>31 Dec 2025</td>
+                                <td>3 Tickets</td>
+                                <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                    <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#B003</td>
+                                <td><span class="badge bg-info">Hotel</span></td>
+                                <td>ibis Muscat – Double Room</td>
+                                <td>05 Jan 2026 – 07 Jan 2026</td>
+                                <td>2 Adults + 1 Child</td>
+                                <td><span class="badge bg-danger">Cancelled</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary" disabled>View</button>
+                                    <button class="btn btn-sm btn-outline-secondary" disabled>Cancel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small mb-0 mt-3">
+                    <strong>Note:</strong> This is example static data used to illustrate how the user dashboard will look in the final dynamic website.
+                </p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <a href="booking.html" class="btn btn-primary w-100">
+                            <i>📝</i> New Booking
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="hotel.html" class="btn btn-info w-100">
+                            <i>🏨</i> Browse Hotels
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="event.html" class="btn btn-success w-100">
+                            <i>🎫</i> Browse Events
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="contactUs.html" class="btn btn-secondary w-100">
+                            <i>💬</i> Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

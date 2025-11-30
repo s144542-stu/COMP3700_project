@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Page - SmartBooking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Picture1.png" alt="logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hotel.html">Hotels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="event.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userDash.html">User Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminDash.html">Admin Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="questionnaire.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculate.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="funpage.html">Fun Page</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="display-4 text-primary">🎮 Travel Memory Match Game</h1>
+            <p class="lead">Test your memory! Match pairs of travel-themed cards</p>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h5 class="text-primary">Moves</h5>
+                                <h3 id="moves">0</h3>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="text-success">Matches</h5>
+                                <h3 id="matches">0</h3>
+                            </div>
+                            <div class="col-4">
+                                <h5 class="text-info">Time</h5>
+                                <h3 id="timer">0:00</h3>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary" onclick="resetGame()">🔄 New Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div id="gameBoard" class="row g-3">
+                    <!-- Cards will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Modal -->
+        <div class="modal fade" id="winModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">🎉 Congratulations!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h4>You Won!</h4>
+                        <p id="winMessage"></p>
+                        <button class="btn btn-primary" onclick="resetGame()" data-bs-dismiss="modal">Play Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-light py-3 mt-5">
+        <div class="container text-center text-muted small">
+            ©2025 Smart Booking | by Leader Team. All rights reserved
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Game variables
+        // Array of travel-themed icons (emojis) for the memory game
+        const icons = ['🏨', '✈️', '🎫', '🗺️', '🧳', '🏖️', '🎭', '🍽️'];
+        
+        // Game state variables
+        let cards = [];              // Array to store card elements
+        let flippedCards = [];       // Array to track currently flipped cards
+        let matchedPairs = 0;        // Counter for matched pairs
+        let moves = 0;               // Counter for number of moves made
+        let timerInterval;           // Interval for the game timer
+        let seconds = 0;             // Timer seconds counter
+        let gameStarted = false;     // Flag to track if game has started
+
+        // Function to initialize the game
+        // This function creates the card deck, shuffles it, and renders the game board
+        function initGame() {
+            // Create pairs of cards by duplicating the icons array
+            let cardValues = [...icons, ...icons]; // Spread operator creates a copy with duplicates
+            
+            // Shuffle the cards using Fisher-Yates shuffle algorithm
+            cardValues = shuffleArray(cardValues);
+            
+            // Get the game board element
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = ''; // Clear any existing cards
+            
+            // Create card elements dynamically
+            cardValues.forEach((icon, index) => {
+                // Create card container div
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'col-3'; // Bootstrap column for responsive grid
+                
+                // Create card inner HTML with front and back faces
+                cardDiv.innerHTML = `
+                    <div class="card text-center shadow-sm" style="cursor: pointer; min-height: 120px; transition: transform 0.3s; position: relative;">
+                        <div class="card-body d-flex align-items-center justify-content-center" 
+                             style="font-size: 3rem; position: relative;">
+                            <span class="card-front" style="position: absolute;">❓</span>
+                            <span class="card-back" style="display: none; position: absolute;">${icon}</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Get the card element and add click event listener
+                const card = cardDiv.querySelector('.card');
+                card.dataset.icon = icon; // Store the icon value in data attribute
+                card.dataset.index = index; // Store the card index
+                
+                // Add click event to flip the card
+                card.addEventListener('click', function() {
+                    flipCard(this);
+                });
+                
+                gameBoard.appendChild(cardDiv);
+            });
+            
+            // Reset game state
+            resetGameState();
+        }
+
+        // Fisher-Yates shuffle algorithm to randomly shuffle an array
+        // This ensures each card appears in a random position
+        function shuffleArray(array) {
+            const shuffled = [...array]; // Create a copy of the array
+            
+            // Loop through array from end to beginning
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                // Generate random index from 0 to i
+                const j = Math.floor(Math.random() * (i + 1));
+                
+                // Swap elements at positions i and j
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            return shuffled;
+        }
+
+        // Function to handle card flip animation and logic
+        // This function is called when a card is clicked
+        function flipCard(card) {
+            // Prevent flipping if game hasn't started
+            if (!gameStarted) {
+                startTimer(); // Start timer on first card flip
+                gameStarted = true;
+            }
+            
+            // Prevent flipping more than 2 cards or already flipped cards
+            if (flippedCards.length >= 2 || card.classList.contains('flipped')) {
+                return;
+            }
+            
+            // Flip animation: show back of card, hide front
+            const front = card.querySelector('.card-front');
+            const back = card.querySelector('.card-back');
+            
+            front.style.display = 'none';
+            back.style.display = 'block';
+            card.classList.add('flipped');
+            card.style.transform = 'scale(1.05)'; // Slight scale effect
+            
+            // Add card to flipped cards array
+            flippedCards.push(card);
+            
+            // Check if two cards are flipped
+            if (flippedCards.length === 2) {
+                moves++; // Increment move counter
+                document.getElementById('moves').textContent = moves;
+                
+                // Delay to show both cards before checking match
+                setTimeout(checkMatch, 800);
+            }
+        }
+
+        // Function to check if two flipped cards match
+        // Compares the icons of the two flipped cards
+        function checkMatch() {
+            const [card1, card2] = flippedCards; // Destructure flipped cards array
+            
+            // Compare the icon data attributes
+            if (card1.dataset.icon === card2.dataset.icon) {
+                // Match found! Change card styling
+                card1.style.backgroundColor = '#d4edda'; // Light green background
+                card2.style.backgroundColor = '#d4edda';
+                card1.style.border = '2px solid #28a745'; // Green border
+                card2.style.border = '2px solid #28a745';
+                
+                // Increment matched pairs counter
+                matchedPairs++;
+                document.getElementById('matches').textContent = matchedPairs;
+                
+                // Check if all pairs are matched (win condition)
+                if (matchedPairs === icons.length) {
+                    stopTimer(); // Stop the timer
+                    showWinModal(); // Show victory modal
+                }
+            } else {
+                // No match - flip cards back
+                setTimeout(() => {
+                    // Hide back, show front again
+                    const front1 = card1.querySelector('.card-front');
+                    const back1 = card1.querySelector('.card-back');
+                    const front2 = card2.querySelector('.card-front');
+                    const back2 = card2.querySelector('.card-back');
+                    
+                    front1.style.display = 'block';
+                    back1.style.display = 'none';
+                    front2.style.display = 'block';
+                    back2.style.display = 'none';
+                    
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    card1.style.transform = '';
+                    card2.style.transform = '';
+                }, 500);
+            }
+            
+            // Clear flipped cards array for next turn
+            flippedCards = [];
+        }
+
+        // Function to start the game timer
+        // Updates the timer display every second
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                document.getElementById('timer').textContent = 
+                    `${mins}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Function to stop the timer
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        // Function to show the win modal with game statistics
+        function showWinModal() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+            
+            document.getElementById('winMessage').innerHTML = `
+                You completed the game in <strong>${moves}</strong> moves 
+                and <strong>${timeStr}</strong>!
+            `;
+            
+            // Show Bootstrap modal
+            const modal = new bootstrap.Modal(document.getElementById('winModal'));
+            modal.show();
+        }
+
+        // Function to reset game state variables
+        function resetGameState() {
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            seconds = 0;
+            gameStarted = false;
+            
+            // Update display
+            document.getElementById('moves').textContent = '0';
+            document.getElementById('matches').textContent = '0';
+            document.getElementById('timer').textContent = '0:00';
+            
+            // Stop and clear timer
+            stopTimer();
+        }
+
+        // Function to reset and start a new game
+        // Called when user clicks "New Game" button
+        function resetGame() {
+            resetGameState();
+            initGame();
+        }
+
+        // Initialize game when page loads
+        window.onload = function() {
+            initGame();
+        };
+    </script>
+</body>
+</html>
