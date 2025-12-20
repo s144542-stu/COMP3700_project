@@ -43,7 +43,7 @@
 
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form action="https://httpbin.org/get" method="get" class="card shadow p-4 needs-validation" novalidate>
+                <form id="bookingForm" action="processBooking.php" method="post" class="card shadow p-4">
                     <!-- Personal Information -->
                     <fieldset class="mb-4">
                         <legend class="h5 text-primary border-bottom pb-2">Personal Information</legend>
@@ -51,18 +51,19 @@
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Full Name *</label>
                             <input type="text" id="fullName" name="fullName" class="form-control" required>
-                            <div class="invalid-feedback">Please provide your full name.</div>
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address *</label>
                             <input type="email" id="email" name="email" class="form-control" required>
-                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
                             <input type="tel" id="phone" name="phone" class="form-control" placeholder="+968-XXXXXXXX">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </fieldset>
 
@@ -77,6 +78,7 @@
                             <input class="form-check-input" type="radio" name="bookingType" id="bookingEvent" value="event">
                             <label class="form-check-label" for="bookingEvent">Event Booking</label>
                         </div>
+                        <div class="invalid-feedback d-block" id="bookingTypeError"></div>
                     </fieldset>
 
                     <!-- Hotel / Event Selection -->
@@ -88,9 +90,9 @@
                             <select id="itemName" name="itemName" class="form-select" required>
                                 <option value="">-- Please choose --</option>
                                 <optgroup label="Hotels">
-                                    <option value="Crowne Plaza Hotel">Crowne Plaza Hotel</option>
-                                    <option value="Mercure Hotel">Mercure Hotel</option>
-                                    <option value="Intercontinental Hotel">Intercontinental Hotel</option>
+                                    <option value="Crowne Plaza Muscat">Crowne Plaza Muscat</option>
+                                    <option value="Mercure Muscat">Mercure Muscat</option>
+                                    <option value="Ibis Muscat">Ibis Muscat</option>
                                 </optgroup>
                                 <optgroup label="Events">
                                     <option value="Wedding Reception">Wedding Reception</option>
@@ -98,7 +100,7 @@
                                     <option value="National Day Celebration">National Day Celebration</option>
                                 </optgroup>
                             </select>
-                            <div class="invalid-feedback">Please select a hotel or event.</div>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </fieldset>
 
@@ -108,23 +110,26 @@
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-4">
-                                <label for="checkIn" class="form-label">Check-in Date (for hotels)</label>
-                                <input type="date" id="checkIn" name="checkInDate" class="form-control">
+                                <label for="checkInDate" class="form-label">Check-in Date (for hotels)</label>
+                                <input type="date" id="checkInDate" name="checkInDate" class="form-control">
+                                <div class="invalid-feedback"></div>
                             </div>
                             <div class="col-md-4">
-                                <label for="checkOut" class="form-label">Check-out Date (for hotels)</label>
-                                <input type="date" id="checkOut" name="checkOutDate" class="form-control">
+                                <label for="checkOutDate" class="form-label">Check-out Date (for hotels)</label>
+                                <input type="date" id="checkOutDate" name="checkOutDate" class="form-control">
+                                <div class="invalid-feedback"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="eventDate" class="form-label">Event Date (for events)</label>
                                 <input type="date" id="eventDate" name="eventDate" class="form-control">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="guests" class="form-label">Number of Guests / Tickets *</label>
                             <input type="number" id="guests" name="guests" class="form-control" min="1" value="1" required>
-                            <div class="invalid-feedback">Please specify number of guests/tickets.</div>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </fieldset>
 
@@ -154,20 +159,186 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Bootstrap form validation
-        (function () {
-            'use strict'
-            const forms = document.querySelectorAll('.needs-validation')
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
+        // Validation Function for Booking Form
+        function validateBookingForm(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+            let errorMessages = [];
+            
+            // Clear previous errors
+            clearErrors();
+            
+            // 1. Full Name Validation
+            const fullName = document.getElementById('fullName').value.trim();
+            const namePattern = /^[A-Za-z]{2,}\s[A-Za-z]{2,}$/;
+            if (fullName === '') {
+                showError('fullName', 'Full name is required');
+                errorMessages.push('Full name is required');
+                isValid = false;
+            } else if (!namePattern.test(fullName)) {
+                showError('fullName', 'Please enter first and last name (letters only, capitalized)');
+                errorMessages.push('Invalid name format');
+                isValid = false;
+            }
+            
+            // 2. Email Validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|org|edu|net|om)$/;
+            if (email === '') {
+                showError('email', 'Email address is required');
+                errorMessages.push('Email is required');
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                showError('email', 'Please enter a valid email address');
+                errorMessages.push('Invalid email format');
+                isValid = false;
+            }
+            
+            // 3. Phone Validation (optional but if filled, must be correct)
+            const phone = document.getElementById('phone').value.trim();
+            const phonePattern = /^\+968-\d{8}$/;
+            if (phone !== '' && !phonePattern.test(phone)) {
+                showError('phone', 'Phone format must be +968-XXXXXXXX');
+                errorMessages.push('Invalid phone format');
+                isValid = false;
+            }
+            
+            // 4. Booking Type Validation
+            const bookingType = document.querySelector('input[name="bookingType"]:checked');
+            if (!bookingType) {
+                document.getElementById('bookingTypeError').textContent = 'Please select a booking type';
+                errorMessages.push('Booking type is required');
+                isValid = false;
+            }
+            
+            // 5. Item Selection Validation
+            const itemName = document.getElementById('itemName').value;
+            if (itemName === '') {
+                showError('itemName', 'Please select a hotel or event');
+                errorMessages.push('Hotel/Event selection is required');
+                isValid = false;
+            }
+            
+            // 6. Date Validation
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+            const eventDate = document.getElementById('eventDate').value;
+            
+            if (bookingType && bookingType.value === 'hotel') {
+                if (checkInDate === '' || checkOutDate === '') {
+                    showError('checkInDate', 'Check-in and check-out dates are required for hotels');
+                    errorMessages.push('Hotel dates are required');
+                    isValid = false;
+                } else {
+                    const checkIn = new Date(checkInDate);
+                    const checkOut = new Date(checkOutDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (checkIn < today) {
+                        showError('checkInDate', 'Check-in date cannot be in the past');
+                        errorMessages.push('Invalid check-in date');
+                        isValid = false;
                     }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
+                    if (checkOut <= checkIn) {
+                        showError('checkOutDate', 'Check-out must be after check-in');
+                        errorMessages.push('Invalid check-out date');
+                        isValid = false;
+                    }
+                }
+            } else if (bookingType && bookingType.value === 'event') {
+                if (eventDate === '') {
+                    showError('eventDate', 'Event date is required');
+                    errorMessages.push('Event date is required');
+                    isValid = false;
+                } else {
+                    const evtDate = new Date(eventDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (evtDate < today) {
+                        showError('eventDate', 'Event date cannot be in the past');
+                        errorMessages.push('Invalid event date');
+                        isValid = false;
+                    }
+                }
+            }
+            
+            // 7. Guests Validation
+            const guests = document.getElementById('guests').value;
+            if (guests === '' || guests < 1) {
+                showError('guests', 'Number of guests must be at least 1');
+                errorMessages.push('Invalid number of guests');
+                isValid = false;
+            } else if (guests > 20) {
+                showError('guests', 'Maximum 20 guests allowed');
+                errorMessages.push('Too many guests');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger mt-3';
+                errorDiv.id = 'errorSummary';
+                errorDiv.innerHTML = '<strong>Please correct the following errors:</strong><ul>' + 
+                    errorMessages.map(msg => `<li>${msg}</li>`).join('') + '</ul>';
+                
+                const form = document.getElementById('bookingForm');
+                form.insertBefore(errorDiv, form.firstChild);
+                window.scrollTo(0, 0);
+                
+                return false;
+            }
+            
+            // If valid, submit
+            document.getElementById('bookingForm').submit();
+            return true;
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            const feedback = field.nextElementSibling;
+            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                feedback.textContent = message;
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.is-invalid').forEach(field => {
+                field.classList.remove('is-invalid');
+            });
+            document.querySelectorAll('.invalid-feedback').forEach(msg => {
+                msg.textContent = '';
+            });
+            const errorSummary = document.getElementById('errorSummary');
+            if (errorSummary) errorSummary.remove();
+        }
+
+        // Attach validation
+        document.getElementById('bookingForm').addEventListener('submit', validateBookingForm);
+
+        // Real-time validation
+        document.getElementById('fullName').addEventListener('blur', function() {
+            const namePattern = /^[A-Za-z]{2,}\s[A-Za-z]{2,}$/;
+            if (this.value.trim() !== '' && !namePattern.test(this.value.trim())) {
+                this.classList.add('is-invalid');
+                this.nextElementSibling.textContent = 'Enter first and last name (e.g., John Smith)';
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.(com|org|edu|net|om)$/;
+            if (this.value.trim() !== '' && !emailPattern.test(this.value.trim())) {
+                this.classList.add('is-invalid');
+                this.nextElementSibling.textContent = 'Enter a valid email address';
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
     </script>
 </body>
 </html>

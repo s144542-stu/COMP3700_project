@@ -87,24 +87,24 @@
                         <h4 class="mb-0">Send Us a Message</h4>
                     </div>
                     <div class="card-body p-4">
-                        <form action="mailto:s144542@student.squ.edu.om" method="post" enctype="text/plain" class="needs-validation" novalidate>
+                        <form id="contactForm" action="processContact.php" method="post">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="name" class="form-label">Full Name *</label>
                                     <input type="text" id="name" name="name" class="form-control" required>
-                                    <div class="invalid-feedback">Please enter your name.</div>
+                                    <div class="invalid-feedback"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email Address *</label>
                                     <input type="email" id="email" name="email" class="form-control" required>
-                                    <div class="invalid-feedback">Please enter a valid email.</div>
+                                    <div class="invalid-feedback"></div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="subject" class="form-label">Subject *</label>
                                     <input type="text" id="subject" name="subject" class="form-control" required>
-                                    <div class="invalid-feedback">Please enter a subject.</div>
+                                    <div class="invalid-feedback"></div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -118,61 +118,35 @@
                                         <option value="feedback">Feedback</option>
                                         <option value="other">Other</option>
                                     </select>
-                                    <div class="invalid-feedback">Please select a reason.</div>
+                                    <div class="invalid-feedback"></div>
                                 </div>
 
                                 <div class="col-12">
                                     <label for="message" class="form-label">Message *</label>
-                                    <textarea id="message" name="message" rows="6" class="form-control" placeholder="Please describe your inquiry in detail..." required></textarea>
-                                    <div class="invalid-feedback">Please enter your message.</div>
+                                    <textarea id="message" name="message" rows="6" class="form-control" 
+                                              placeholder="Please describe your inquiry in detail..." required></textarea>
+                                    <div class="invalid-feedback"></div>
+                                    <div id="charCounter" class="form-text text-muted"></div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" required>
                                         <label class="form-check-label" for="agreeTerms">
                                             I agree to the terms and conditions and privacy policy
                                         </label>
-                                        <div class="invalid-feedback">You must agree before submitting.</div>
+                                        <div class="invalid-feedback d-block" id="termsError"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                        <button type="reset" class="btn btn-secondary" onclick="clearContactErrors()">Reset</button>
                                         <button type="submit" class="btn btn-primary">Send Message</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-
-                <!-- Additional Info -->
-                <div class="alert alert-info mt-4" role="alert">
-                    <h5 class="alert-heading">💡 Quick Tip</h5>
-                    <p class="mb-0">
-                        For urgent booking issues, please call our support hotline. For general inquiries, we typically respond to emails within 24 hours.
-                    </p>
-                </div>
-
-                <!-- Business Hours -->
-                <div class="card mt-4 shadow-sm">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">Business Hours</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="mb-2"><strong>Customer Support:</strong></p>
-                                <p class="mb-1">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                                <p class="mb-0">Saturday: 10:00 AM - 4:00 PM</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-2"><strong>Emergency Booking Support:</strong></p>
-                                <p class="mb-0">Available 24/7 for urgent booking issues</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -188,20 +162,171 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Bootstrap form validation
-        (function () {
-            'use strict'
-            const forms = document.querySelectorAll('.needs-validation')
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
+        // Character counter
+        const messageField = document.getElementById('message');
+        const charCounter = document.getElementById('charCounter');
+        const maxLength = 1000;
+
+        messageField.addEventListener('input', function() {
+            const remaining = maxLength - this.value.length;
+            charCounter.textContent = `Characters: ${this.value.length} / ${maxLength} (${remaining} remaining)`;
+            
+            if (remaining < 100) {
+                charCounter.className = 'form-text text-warning';
+            } else if (remaining < 0) {
+                charCounter.className = 'form-text text-danger';
+            } else {
+                charCounter.className = 'form-text text-muted';
+            }
+        });
+
+        // Validation Function
+        function validateContactForm(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+            let errorMessages = [];
+            
+            clearContactErrors();
+            
+            // 1. Name Validation
+            const name = document.getElementById('name').value.trim();
+            const namePattern = /^[A-Za-z\s]{3,50}$/;
+            if (name === '') {
+                showContactError('name', 'Full name is required');
+                errorMessages.push('Name is required');
+                isValid = false;
+            } else if (name.length < 3) {
+                showContactError('name', 'Name must be at least 3 characters');
+                errorMessages.push('Name too short');
+                isValid = false;
+            } else if (!namePattern.test(name)) {
+                showContactError('name', 'Name can only contain letters and spaces');
+                errorMessages.push('Invalid name characters');
+                isValid = false;
+            }
+            
+            // 2. Email Validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === '') {
+                showContactError('email', 'Email is required');
+                errorMessages.push('Email is required');
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                showContactError('email', 'Please enter a valid email');
+                errorMessages.push('Invalid email');
+                isValid = false;
+            }
+            
+            // 3. Subject Validation
+            const subject = document.getElementById('subject').value.trim();
+            if (subject === '') {
+                showContactError('subject', 'Subject is required');
+                errorMessages.push('Subject is required');
+                isValid = false;
+            } else if (subject.length < 5) {
+                showContactError('subject', 'Subject must be at least 5 characters');
+                errorMessages.push('Subject too short');
+                isValid = false;
+            }
+            
+            // 4. Reason Validation
+            const reason = document.getElementById('reason').value;
+            if (reason === '') {
+                showContactError('reason', 'Please select a reason');
+                errorMessages.push('Reason is required');
+                isValid = false;
+            }
+            
+            // 5. Message Validation
+            const message = document.getElementById('message').value.trim();
+            if (message === '') {
+                showContactError('message', 'Message is required');
+                errorMessages.push('Message is required');
+                isValid = false;
+            } else if (message.length < 20) {
+                showContactError('message', 'Message must be at least 20 characters');
+                errorMessages.push('Message too short');
+                isValid = false;
+            } else if (message.length > 1000) {
+                showContactError('message', 'Message must not exceed 1000 characters');
+                errorMessages.push('Message too long');
+                isValid = false;
+            }
+            
+            // 6. Terms Agreement
+            const agreeTerms = document.getElementById('agreeTerms');
+            if (!agreeTerms.checked) {
+                document.getElementById('termsError').textContent = 'You must agree to the terms';
+                errorMessages.push('Terms agreement required');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger mt-3';
+                errorDiv.id = 'errorSummary';
+                errorDiv.innerHTML = '<strong>⚠️ Form Validation Errors:</strong><ul>' + 
+                    errorMessages.map(msg => `<li>${msg}</li>`).join('') + '</ul>';
+                
+                const form = document.getElementById('contactForm');
+                form.insertBefore(errorDiv, form.firstChild);
+                window.scrollTo(0, 0);
+                
+                return false;
+            }
+            
+            document.getElementById('contactForm').submit();
+            return true;
+        }
+
+        function showContactError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('is-invalid');
+            const feedback = field.nextElementSibling;
+            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                feedback.textContent = message;
+            }
+        }
+
+        function clearContactErrors() {
+            document.querySelectorAll('.is-invalid').forEach(field => {
+                field.classList.remove('is-invalid');
+            });
+            document.querySelectorAll('.invalid-feedback').forEach(msg => {
+                msg.textContent = '';
+            });
+            const errorSummary = document.getElementById('errorSummary');
+            if (errorSummary) errorSummary.remove();
+            document.getElementById('termsError').textContent = '';
+        }
+
+        // Attach validation
+        document.getElementById('contactForm').addEventListener('submit', validateContactForm);
+
+        // Real-time validation
+        document.getElementById('name').addEventListener('blur', function() {
+            const namePattern = /^[A-Za-z\s]{3,50}$/;
+            if (this.value.trim() !== '' && !namePattern.test(this.value.trim())) {
+                this.classList.add('is-invalid');
+                this.nextElementSibling.textContent = 'Enter a valid name (3-50 letters)';
+            } else if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailPattern = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (this.value.trim() !== '' && !emailPattern.test(this.value.trim())) {
+                this.classList.add('is-invalid');
+                this.nextElementSibling.textContent = 'Enter a valid email address';
+            } else if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
     </script>
 </body>
 </html>
